@@ -19,6 +19,9 @@ const config: Config = {
         accentColor: "#03B5AA",
         text: "#E6E6FA",
       },
+      transitionProperty: {
+        collapsable: "max-height",
+      },
     },
   },
   plugins: [],
