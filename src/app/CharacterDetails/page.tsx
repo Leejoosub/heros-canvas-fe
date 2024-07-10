@@ -1,15 +1,24 @@
 "use client";
+import { characterGenerator } from "@/api/herosCanvas/characterGenerator";
+import { portraitGenerator } from "@/api/herosCanvas/portraitGeneration";
 import Collapsable from "@/components/Collapsable";
 import Layout from "@/components/Layout";
-import { DND_CLASSES, DND_LEVELS, DND_RACES, DndStats } from "@/constants/dnd";
+import {
+  DND_CLASSES,
+  DND_LEVELS,
+  DND_RACES,
+  DndStats,
+  GENDERS,
+} from "@/constants/dnd";
 import { FormEvent, useState } from "react";
 
 export default function CharacterDetailsPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [level, setLevel] = useState(1);
-  const [race, setRace] = useState("Dragonborn");
-  const [charClass, setCharClass] = useState("Artificer");
+  const [race, setRace] = useState(DND_RACES[0]);
+  const [charClass, setCharClass] = useState(DND_CLASSES[0]);
+  const [gender, setGender] = useState(GENDERS[0]);
 
   const [bio, setBio] = useState("");
   const [campaign, setCampaign] = useState("");
@@ -23,7 +32,7 @@ export default function CharacterDetailsPage() {
     charisma: 10,
   });
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -36,7 +45,31 @@ export default function CharacterDetailsPage() {
     console.log("campaign: ", campaign);
     console.log("stats: ", stats);
 
-    setIsLoading(false);
+    const [characterDetailRes, portraitRes] = await Promise.all([
+      characterGenerator(
+        name,
+        level,
+        race,
+        charClass,
+        gender,
+        stats,
+        campaign,
+        bio
+      ),
+      portraitGenerator(
+        name,
+        level,
+        race,
+        charClass,
+        gender,
+        stats,
+        campaign,
+        bio
+      ),
+    ]).finally(() => setIsLoading(false));
+
+    console.log("characterDetailsRes: ", characterDetailRes);
+    console.log("portraitRes: ", portraitRes);
   };
 
   return (
@@ -104,6 +137,22 @@ export default function CharacterDetailsPage() {
                   >
                     {DND_CLASSES.map((_class, i) => {
                       return <option key={`class_${i}`}>{_class}</option>;
+                    })}
+                  </select>
+                </label>
+              </div>
+              <div className="m-2">
+                <label>
+                  Gender:{" "}
+                  <select
+                    className="ml-2 px-1 rounded-lg bg-text text-primary"
+                    value={gender}
+                    onChange={(e) => {
+                      setGender(e.target.value);
+                    }}
+                  >
+                    {GENDERS.map((gender, i) => {
+                      return <option key={`class_${i}`}>{gender}</option>;
                     })}
                   </select>
                 </label>
