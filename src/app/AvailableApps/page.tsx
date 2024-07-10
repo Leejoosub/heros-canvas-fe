@@ -13,7 +13,7 @@ export default function AvailableAppsPage() {
           <ScalingImageCard
             title="Draw Portrait"
             image={HalforcBarb}
-            link="CharacterDetails"
+            link="/PortraitGenerator"
           >
             <p>
               Transform your character's stats and traits into a stunning visual
@@ -25,7 +25,7 @@ export default function AvailableAppsPage() {
           <ScalingImageCard
             title="New Character"
             image={Newbie}
-            link="CharacterDetails"
+            link="/PortraitGenerator"
           >
             <p>
               Ready to embark on a new adventure but not sure where to begin?
@@ -39,7 +39,7 @@ export default function AvailableAppsPage() {
           <ScalingImageCard
             title="Guidance"
             image={Guide}
-            link="CharacterDetails"
+            link="/PortraitGenerator"
           >
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
