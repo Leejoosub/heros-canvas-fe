@@ -31,6 +31,8 @@ export const DND_CLASSES = [
   "Wizard",
 ];
 
+export const GENDERS = ["Male", "Female", "Other"];
+
 export type DndStats = {
   strength: number;
   dexterity: number;
