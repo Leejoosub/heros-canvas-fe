@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface HeaderProps {
   appStarted?: boolean;
 }
@@ -10,7 +12,12 @@ export default function Header({ appStarted = true }: HeaderProps) {
         {appStarted ? (
           <p>Home</p>
         ) : (
-          <button className="bg-accentColor p-2 rounded-lg">Start App</button>
+          <Link
+            href={"/AvailableApps"}
+            className="bg-accentColor p-2 rounded-lg"
+          >
+            Start App
+          </Link>
         )}
       </div>
     </div>
