@@ -1,6 +1,4 @@
-import { DND_CLASSES, DND_LEVELS, DND_RACES } from "@/constants/dnd";
-import { GENDERS } from "@/constants/dnd";
-import { Genders, PortraitGeneratorFormData } from "@/types/forms";
+import { PortraitGeneratorFormData } from "@/types/forms";
 
 interface PhysicalDetailsProps {
   formData: PortraitGeneratorFormData;

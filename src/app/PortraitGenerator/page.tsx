@@ -1,20 +1,11 @@
 "use client";
-import { characterGenerator } from "@/api/herosCanvas/characterGenerator";
 import { portraitGenerator } from "@/api/herosCanvas/portraitGeneration";
 import Collapsable from "@/components/Collapsable";
 import BasicDetailsForm from "@/components/Forms/BasicDetails";
 import PhysicalDetailsForm from "@/components/Forms/PhysicalDetails";
 import StatsForm from "@/components/Forms/Stats";
 import Layout from "@/components/Layout";
-import {
-  DND_BASE_STATS,
-  DND_CLASSES,
-  DND_LEVELS,
-  DND_RACES,
-  EMPTY_PORTRAIT_FORM_DATA,
-  GENDERS,
-} from "@/constants/dnd";
-import { DndStats } from "@/types/dnd";
+import { EMPTY_PORTRAIT_FORM_DATA } from "@/constants/dnd";
 import { PortraitGeneratorFormData } from "@/types/forms";
 import Image from "next/image";
 import { FormEvent, useState } from "react";
