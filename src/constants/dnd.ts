@@ -1,7 +1,8 @@
+import { PortraitGeneratorFormData } from "@/types/forms";
+
 export const DND_LEVELS = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 ];
-export type DND_LEVELS_type = (typeof DND_LEVELS)[number];
 
 export const DND_RACES = [
   "Dragonborn",
@@ -33,11 +34,20 @@ export const DND_CLASSES = [
 
 export const GENDERS = ["Male", "Female", "Other"];
 
-export type DndStats = {
-  strength: number;
-  dexterity: number;
-  constitution: number;
-  intelligence: number;
-  wisdom: number;
-  charisma: number;
+export const DND_BASE_STATS = {
+  strength: 10,
+  dexterity: 10,
+  constitution: 10,
+  intelligence: 10,
+  wisdom: 10,
+  charisma: 10,
+};
+
+export const EMPTY_PORTRAIT_FORM_DATA: PortraitGeneratorFormData = {
+  name: "",
+  level: 1,
+  race: DND_RACES[0],
+  charClass: DND_CLASSES[0],
+  gender: "Male",
+  stats: DND_BASE_STATS,
 };

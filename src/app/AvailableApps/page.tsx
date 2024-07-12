@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import ScalingImageCard from "@/components/ScalingImageCard";
 import HalforcBarb from "@/assets/characters/half-orc-barbarian.png";
-import Newbie from "@/assets/characters/beginner_halfling_.png";
+import Newbie from "@/assets/characters/beginner_halfing_2.png";
 import Guide from "@/assets/characters/old_wizard_helper.png";
 
 export default function AvailableAppsPage() {

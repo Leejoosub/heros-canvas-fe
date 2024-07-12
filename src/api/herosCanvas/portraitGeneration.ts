@@ -1,15 +1,9 @@
-import { DndStats } from "@/constants/dnd";
+import { DndStats } from "@/types/dnd";
 import { HEROS_CANVAS_BE } from "@/constants/urls";
+import { PortraitGeneratorFormData } from "@/types/forms";
 
 export const portraitGenerator = async (
-  name: string,
-  level: number,
-  race: string,
-  charClass: string,
-  gender: string,
-  stats: DndStats,
-  campaignDetails: string,
-  bio: string
+  formData: PortraitGeneratorFormData
 ) => {
   console.log(`${HEROS_CANVAS_BE}/generate-hero-portrait`);
   const res = await fetch(`${HEROS_CANVAS_BE}/generate-hero-portrait`, {
@@ -17,24 +11,18 @@ export const portraitGenerator = async (
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      name,
-      level,
-      race,
-      charClass,
-      gender,
-      stats,
-      campaignDetails,
-      bio,
-    }),
+    body: JSON.stringify(formData),
   });
-
-  console.log("portrait res stat: ", res.status);
 
   if (!res.ok) {
     throw new Error(`HTTP Error! Status: ${res.status}`);
   }
 
-  // console.log("response: ", await res.json());
-  return await res.json();
+  const data = await res.json();
+
+  if (Object.hasOwn(data, "errorMessage")) {
+    throw new Error(`Error generating image:  ${data.errorMessage}`);
+  }
+
+  return data;
 };

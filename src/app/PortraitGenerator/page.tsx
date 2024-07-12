@@ -2,291 +2,87 @@
 import { characterGenerator } from "@/api/herosCanvas/characterGenerator";
 import { portraitGenerator } from "@/api/herosCanvas/portraitGeneration";
 import Collapsable from "@/components/Collapsable";
+import BasicDetailsForm from "@/components/Forms/BasicDetails";
+import PhysicalDetailsForm from "@/components/Forms/PhysicalDetails";
+import StatsForm from "@/components/Forms/Stats";
 import Layout from "@/components/Layout";
 import {
+  DND_BASE_STATS,
   DND_CLASSES,
   DND_LEVELS,
   DND_RACES,
-  DndStats,
+  EMPTY_PORTRAIT_FORM_DATA,
   GENDERS,
 } from "@/constants/dnd";
+import { DndStats } from "@/types/dnd";
+import { PortraitGeneratorFormData } from "@/types/forms";
+import Image from "next/image";
 import { FormEvent, useState } from "react";
 
 export default function CharacterDetailsPage() {
   const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [level, setLevel] = useState(1);
-  const [race, setRace] = useState(DND_RACES[0]);
-  const [charClass, setCharClass] = useState(DND_CLASSES[0]);
-  const [gender, setGender] = useState(GENDERS[0]);
+  const [formData, setFormData] = useState<PortraitGeneratorFormData>(
+    EMPTY_PORTRAIT_FORM_DATA
+  );
 
-  const [bio, setBio] = useState("");
-  const [campaign, setCampaign] = useState("");
-
-  const [stats, setStats] = useState<DndStats>({
-    strength: 10,
-    dexterity: 10,
-    constitution: 10,
-    intelligence: 10,
-    wisdom: 10,
-    charisma: 10,
-  });
+  const [generatedPortrait, setGeneratedPortrait] = useState("");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    console.log(" ======= handle submit ====== ");
-    console.log("name: ", name);
-    console.log("level: ", level);
-    console.log("race: ", race);
-    console.log("charClass: ", charClass);
-    console.log("bio: ", bio);
-    console.log("campaign: ", campaign);
-    console.log("stats: ", stats);
+    await portraitGenerator(formData)
+      .then((res) => {
+        console.log(".then res: ", res);
+        setGeneratedPortrait(res.portrait_url);
+      })
+      .catch((e: Error) => {
+        alert(`Error Generating Portrait: ${e.message}`);
+      })
+      .finally(() => setIsLoading(false));
+  };
 
-    const [characterDetailRes, portraitRes] = await Promise.all([
-      characterGenerator(
-        name,
-        level,
-        race,
-        charClass,
-        gender,
-        stats,
-        campaign,
-        bio
-      ),
-      portraitGenerator(
-        name,
-        level,
-        race,
-        charClass,
-        gender,
-        stats,
-        campaign,
-        bio
-      ),
-    ]).finally(() => setIsLoading(false));
-
-    console.log("characterDetailsRes: ", characterDetailRes);
-    console.log("portraitRes: ", portraitRes);
+  const handleRestart = () => {
+    setFormData(EMPTY_PORTRAIT_FORM_DATA);
   };
 
   return (
     <Layout>
       {isLoading ? (
         <p>loading...</p>
+      ) : generatedPortrait ? (
+        <div className="w-4/5 flex flex-col justify-center text-center">
+          <h1 className="text-text text-3xl m-3">{formData.name}</h1>
+          <Image
+            src={generatedPortrait}
+            alt={`character ${name}'s portrait`}
+            width={1024}
+            height={1024}
+          />
+          <div className="w-full flex justify-center">
+            <button onClick={handleSubmit} className="bg-accentColor m-3 p-3">
+              Generate Another
+            </button>
+            <button onClick={handleRestart} className="bg-accentColor m-3 p-3">
+              Start Over
+            </button>
+          </div>
+        </div>
       ) : (
         <form className="w-4/5">
           {/* Basic Details */}
           <Collapsable title={"Basic"}>
-            <>
-              <div className="m-2">
-                <label>
-                  Name:
-                  <input
-                    type="text"
-                    className="ml-2 px-1 rounded-lg bg-text text-primary"
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }}
-                  />
-                </label>
-              </div>
-              <div className="m-2">
-                <label>
-                  Level:{" "}
-                  <select
-                    className="ml-2 px-1 rounded-lg bg-text text-primary"
-                    value={level}
-                    onChange={(e) => {
-                      setLevel(parseInt(e.target.value));
-                    }}
-                  >
-                    {DND_LEVELS.map((level, i) => {
-                      return <option key={`level_${i}`}>{level}</option>;
-                    })}
-                  </select>
-                </label>
-              </div>
-              <div className="m-2">
-                <label>
-                  Race:{" "}
-                  <select
-                    className="ml-2 px-1 rounded-lg bg-text text-primary"
-                    value={race}
-                    onChange={(e) => {
-                      setRace(e.target.value);
-                    }}
-                  >
-                    {DND_RACES.map((race, i) => {
-                      return <option key={`race_${i}`}>{race}</option>;
-                    })}
-                  </select>
-                </label>
-              </div>
-              <div className="m-2">
-                <label>
-                  Class:{" "}
-                  <select
-                    className="ml-2 px-1 rounded-lg bg-text text-primary"
-                    value={charClass}
-                    onChange={(e) => {
-                      setCharClass(e.target.value);
-                    }}
-                  >
-                    {DND_CLASSES.map((_class, i) => {
-                      return <option key={`class_${i}`}>{_class}</option>;
-                    })}
-                  </select>
-                </label>
-              </div>
-              <div className="m-2">
-                <label>
-                  Gender:{" "}
-                  <select
-                    className="ml-2 px-1 rounded-lg bg-text text-primary"
-                    value={gender}
-                    onChange={(e) => {
-                      setGender(e.target.value);
-                    }}
-                  >
-                    {GENDERS.map((gender, i) => {
-                      return <option key={`class_${i}`}>{gender}</option>;
-                    })}
-                  </select>
-                </label>
-              </div>
-            </>
+            <BasicDetailsForm formData={formData} setFormData={setFormData} />
           </Collapsable>
           {/* Stats */}
           <Collapsable title={"Stats"}>
-            <>
-              <div>
-                <label>
-                  Strength:{" "}
-                  <input
-                    type="number"
-                    min={0}
-                    defaultValue={10}
-                    onChange={(e) => {
-                      setStats({
-                        ...stats,
-                        strength: parseInt(e.target.value),
-                      });
-                    }}
-                    className="ml-2 my-1 px-1 rounded-lg bg-text text-primary w-10"
-                  />
-                </label>
-              </div>
-              <div>
-                <label>
-                  Dexterity:{" "}
-                  <input
-                    type="number"
-                    min={0}
-                    defaultValue={10}
-                    onChange={(e) => {
-                      setStats({
-                        ...stats,
-                        dexterity: parseInt(e.target.value),
-                      });
-                    }}
-                    className="ml-2 my-1 px-1 rounded-lg bg-text text-primary w-10"
-                  />
-                </label>
-              </div>
-              <div>
-                <label>
-                  Constitution:{" "}
-                  <input
-                    type="number"
-                    min={0}
-                    defaultValue={10}
-                    onChange={(e) => {
-                      setStats({
-                        ...stats,
-                        constitution: parseInt(e.target.value),
-                      });
-                    }}
-                    className="ml-2  my-1 px-1 rounded-lg bg-text text-primary  w-10"
-                  />
-                </label>
-              </div>
-              <div>
-                <label>
-                  Intelligence:{" "}
-                  <input
-                    type="number"
-                    min={0}
-                    defaultValue={10}
-                    onChange={(e) => {
-                      setStats({
-                        ...stats,
-                        intelligence: parseInt(e.target.value),
-                      });
-                    }}
-                    className="ml-2  my-1 px-1 rounded-lg bg-text text-primary  w-10"
-                  />
-                </label>
-              </div>
-              <div>
-                <label>
-                  Wisdom:{" "}
-                  <input
-                    type="number"
-                    min={0}
-                    defaultValue={10}
-                    onChange={(e) => {
-                      setStats({
-                        ...stats,
-                        wisdom: parseInt(e.target.value),
-                      });
-                    }}
-                    className="ml-2  my-1 px-1 rounded-lg bg-text text-primary  w-10"
-                  />
-                </label>
-              </div>
-              <div>
-                <label>
-                  Charisma:{" "}
-                  <input
-                    type="number"
-                    min={0}
-                    defaultValue={10}
-                    onChange={(e) => {
-                      setStats({
-                        ...stats,
-                        charisma: parseInt(e.target.value),
-                      });
-                    }}
-                    className="ml-2  my-1 px-1 rounded-lg bg-text text-primary  w-10"
-                  />
-                </label>
-              </div>
-            </>
+            <StatsForm formData={formData} setFormData={setFormData} />
           </Collapsable>
           <Collapsable title={"Additional Details"}>
-            <div className="flex flex-col">
-              <label className="my-3 flex flex-row">
-                Biography:
-                <textarea
-                  onChange={(e) => {
-                    setBio(e.target.value);
-                  }}
-                  className="ml-3 w-1/2 resize-none text-primary"
-                />
-              </label>
-              <label className="my-3 flex flex-row">
-                Campaign:{" "}
-                <textarea
-                  onChange={(e) => {
-                    setCampaign(e.target.value);
-                  }}
-                  className="ml-3 w-1/2 resize-none text-primary"
-                />
-              </label>
-            </div>
+            <PhysicalDetailsForm
+              formData={formData}
+              setFormData={setFormData}
+            />
           </Collapsable>
           <div className="flex w-full justify-end">
             <button

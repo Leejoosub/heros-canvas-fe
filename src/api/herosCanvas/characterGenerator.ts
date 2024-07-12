@@ -1,4 +1,4 @@
-import { DndStats } from "@/constants/dnd";
+import { DndStats } from "@/types/dnd";
 import { HEROS_CANVAS_BE } from "@/constants/urls";
 
 export const characterGenerator = async (
