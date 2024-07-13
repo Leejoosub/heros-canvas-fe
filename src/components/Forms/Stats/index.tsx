@@ -15,7 +15,6 @@ export default function StatsForm({ formData, setFormData }: StatsProps) {
           <input
             type="number"
             min={0}
-            defaultValue={10}
             value={formData.stats.strength}
             onChange={(e) => {
               setFormData({
@@ -36,7 +35,6 @@ export default function StatsForm({ formData, setFormData }: StatsProps) {
           <input
             type="number"
             min={0}
-            defaultValue={10}
             value={formData.stats.dexterity}
             onChange={(e) => {
               setFormData({
@@ -57,7 +55,6 @@ export default function StatsForm({ formData, setFormData }: StatsProps) {
           <input
             type="number"
             min={0}
-            defaultValue={10}
             value={formData.stats.constitution}
             onChange={(e) => {
               setFormData({
@@ -78,7 +75,6 @@ export default function StatsForm({ formData, setFormData }: StatsProps) {
           <input
             type="number"
             min={0}
-            defaultValue={10}
             value={formData.stats.intelligence}
             onChange={(e) => {
               setFormData({
@@ -99,7 +95,6 @@ export default function StatsForm({ formData, setFormData }: StatsProps) {
           <input
             type="number"
             min={0}
-            defaultValue={10}
             value={formData.stats.wisdom}
             onChange={(e) => {
               setFormData({
@@ -120,7 +115,6 @@ export default function StatsForm({ formData, setFormData }: StatsProps) {
           <input
             type="number"
             min={0}
-            defaultValue={10}
             value={formData.stats.charisma}
             onChange={(e) => {
               setFormData({

@@ -69,7 +69,7 @@ export default function CharacterDetailsPage() {
           <Collapsable title={"Stats"}>
             <StatsForm formData={formData} setFormData={setFormData} />
           </Collapsable>
-          <Collapsable title={"Additional Details"}>
+          <Collapsable title={"Additional Details"} size="xl">
             <PhysicalDetailsForm
               formData={formData}
               setFormData={setFormData}
