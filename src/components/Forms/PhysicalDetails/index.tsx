@@ -1,8 +1,12 @@
-"use client";
-import { DEFAULT_EYE_COLOR, HAIRSTYLES } from "@/constants/forms";
+import {
+  DEFAULT_EYE_COLOR,
+  EYE_FEATURES,
+  HAIRSTYLES,
+  PHYSICAL_APPENDAGES,
+  PHYSICAL_BUILD,
+  PHYSICAL_MARKINGS,
+} from "@/constants/forms";
 import { PortraitGeneratorFormData } from "@/types/forms";
-import { useState } from "react";
-import { HexColorPicker } from "react-colorful";
 import ColorPicker from "../ColorPicker";
 
 interface PhysicalDetailsProps {
@@ -16,10 +20,31 @@ export default function PhysicalDetailsForm({
 }: PhysicalDetailsProps) {
   return (
     <div className="flex flex-col w-full">
-      <p className="bg-slate-500 rounded-lg p-2 m-2">
-        Note: Optional physical descriptors! If you do not select an option,
-        we'll fill in the blanks for you
+      <p className="bg-emphasisColor rounded-lg p-2 m-2">
+        Note: Optional. Specify any physical traits you want below. If you leave
+        it blank, we'll randomize it for you so don't worry!
       </p>
+      <label>
+        Eye Features:
+        <select
+          className="ml-2 px-1 rounded-lg bg-text text-primary"
+          value={formData.physicalTraits?.eyeFeatures}
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              physicalTraits: {
+                ...formData.physicalTraits,
+                eyeFeatures: e.target.value,
+              },
+            });
+          }}
+        >
+          {EYE_FEATURES.map((eyeFeatures, index) => (
+            <option key={`eye_features_${index}`}>{eyeFeatures}</option>
+          ))}
+        </select>
+      </label>
+
       <ColorPicker
         label="Select Eye Color"
         colorValue={formData.physicalTraits?.eyeColor}
@@ -38,7 +63,7 @@ export default function PhysicalDetailsForm({
         Hairstyles:
         <select
           className="ml-2 px-1 rounded-lg bg-text text-primary"
-          value={formData.race}
+          value={formData.physicalTraits?.hairStyles}
           onChange={(e) => {
             setFormData({
               ...formData,
@@ -67,6 +92,87 @@ export default function PhysicalDetailsForm({
           })
         }
       />
+      <ColorPicker
+        label="Select Skin Color"
+        colorValue={formData.physicalTraits?.skinColor}
+        handleColorChange={(newColor) =>
+          setFormData({
+            ...formData,
+            physicalTraits: {
+              ...formData.physicalTraits,
+              skinColor: newColor,
+            },
+          })
+        }
+      />
+
+      <label>
+        Physical Build:
+        <select
+          className="ml-2 px-1 rounded-lg bg-text text-primary"
+          value={formData.physicalTraits?.physicalBuild}
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              physicalTraits: {
+                ...formData.physicalTraits,
+                physicalBuild: e.target.value,
+              },
+            });
+          }}
+        >
+          {PHYSICAL_BUILD.map((physicalBuild, index) => (
+            <option key={`Physical_Build_${index}`}>{physicalBuild}</option>
+          ))}
+        </select>
+      </label>
+
+      <label className="my-2">
+        Physical Markings:
+        <select
+          className="ml-2 px-1 rounded-lg bg-text text-primary"
+          value={formData.physicalTraits?.physicalMarkings}
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              physicalTraits: {
+                ...formData.physicalTraits,
+                physicalMarkings: e.target.value,
+              },
+            });
+          }}
+        >
+          {PHYSICAL_MARKINGS.map((physicalMarkings, index) => (
+            <option key={`Physical_Markings_${index}`}>
+              {physicalMarkings}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label className="my-2">
+        Physical Appendages:
+        <select
+          className="ml-2 px-1 rounded-lg bg-text text-primary"
+          value={formData.physicalTraits?.physicalAppendages}
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              physicalTraits: {
+                ...formData.physicalTraits,
+                physicalAppendages: e.target.value,
+              },
+            });
+          }}
+        >
+          {PHYSICAL_APPENDAGES.map((physicalAppendages, index) => (
+            <option key={`Physical_Appendages_${index}`}>
+              {physicalAppendages}
+            </option>
+          ))}
+        </select>
+      </label>
+
       <label className="my-3 flex flex-row">
         Additional Info:
         <textarea
@@ -74,7 +180,7 @@ export default function PhysicalDetailsForm({
             setFormData({ ...formData, bio: e.target.value });
           }}
           className="ml-3 w-1/2 resize-none text-primary bg-text rounded-md p-1"
-          placeholder="Example: Blue scales, gruff, wielding a battleaxe"
+          placeholder="Any custom additional details! ie gruff, captain morgan pose, has a pet rat, etc"
         />
       </label>
       <label className="my-3 flex flex-row">

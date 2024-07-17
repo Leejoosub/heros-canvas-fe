@@ -18,6 +18,7 @@ const config: Config = {
         secondary: "#7A306C",
         accentColor: "#03B5AA",
         text: "#E6E6FA",
+        emphasisColor: "#64748B",
       },
       transitionProperty: {
         collapsable: "max-height",

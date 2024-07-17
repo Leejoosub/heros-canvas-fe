@@ -13,6 +13,7 @@ export default function BasicDetailsForm({
   return (
     <>
       <div className="m-2">
+        <div className="text-red-600">age: put in additional details</div>
         <label>
           Name:
           <input

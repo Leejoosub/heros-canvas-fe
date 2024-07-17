@@ -34,6 +34,7 @@ export default function CharacterDetailsPage() {
   };
 
   const handleRestart = () => {
+    setGeneratedPortrait("");
     setFormData(EMPTY_PORTRAIT_FORM_DATA);
   };
 
@@ -69,7 +70,7 @@ export default function CharacterDetailsPage() {
           <Collapsable title={"Stats"}>
             <StatsForm formData={formData} setFormData={setFormData} />
           </Collapsable>
-          <Collapsable title={"Additional Details"} size="xl">
+          <Collapsable title={"Physical Details"} size="screen" speed="slow">
             <PhysicalDetailsForm
               formData={formData}
               setFormData={setFormData}

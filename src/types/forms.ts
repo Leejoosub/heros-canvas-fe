@@ -17,18 +17,19 @@ export interface PortraitGeneratorFormData {
 
 export interface PhysicalTraits {
   skinTexture?: string;
+  skinColor?: string;
   eyeFeatures?: string;
   eyeColor?: string;
-  hairFeatures?: string;
   hairStyles?: string;
   hairColor?: string;
-  extraAppendages?: string; // ie wings, tails, etc
-  specialMarks?: string; //ie Magical Runes, ElementalMarkings
+  physicalBuild?: string;
+  physicalMarkings?: string; //ie Magical Runes, ElementalMarkings
+  physicalAppendages?: string; // ie wings, tails, etc
 }
 
 export interface Equipment {
   clothingStyles: string;
-  armorType: string;
+  armor: string;
   accessories: string;
   footwear: string;
   weapon: string;

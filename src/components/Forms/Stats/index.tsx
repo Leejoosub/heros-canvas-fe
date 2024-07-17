@@ -8,7 +8,10 @@ interface StatsProps {
 export default function StatsForm({ formData, setFormData }: StatsProps) {
   return (
     <>
-      <p>Your stats will affect your portrait!</p>
+      <p className="bg-emphasisColor rounded-lg p-2 m-2">
+        Note: Your stats will be taken into consideration when drawing the
+        portrait!
+      </p>
       <div>
         <label>
           Strength:{" "}
