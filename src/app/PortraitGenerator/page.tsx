@@ -39,6 +39,10 @@ export default function CharacterDetailsPage() {
     setFormData(EMPTY_PORTRAIT_FORM_DATA);
   };
 
+  const handleEditDetails = () => {
+    setGeneratedPortrait("");
+  };
+
   return (
     <Layout>
       {isLoading ? (
@@ -58,6 +62,12 @@ export default function CharacterDetailsPage() {
             </button>
             <button onClick={handleRestart} className="bg-accentColor m-3 p-3">
               Start Over
+            </button>
+            <button
+              onClick={handleEditDetails}
+              className="bg-accentColor m-3 p-3"
+            >
+              Edit Current
             </button>
           </div>
         </div>
