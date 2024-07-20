@@ -2,6 +2,7 @@
 import { portraitGenerator } from "@/api/herosCanvas/portraitGeneration";
 import Collapsable from "@/components/Collapsable";
 import BasicDetailsForm from "@/components/Forms/BasicDetails";
+import EquipmentForm from "@/components/Forms/Equipment";
 import PhysicalDetailsForm from "@/components/Forms/PhysicalDetails";
 import StatsForm from "@/components/Forms/Stats";
 import Layout from "@/components/Layout";
@@ -75,6 +76,9 @@ export default function CharacterDetailsPage() {
               formData={formData}
               setFormData={setFormData}
             />
+          </Collapsable>
+          <Collapsable title="Equipment">
+            <EquipmentForm formData={formData} setFormData={setFormData} />
           </Collapsable>
           <div className="flex w-full justify-end">
             <button

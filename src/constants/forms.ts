@@ -63,6 +63,53 @@ export const PHYSICAL_APPENDAGES = [
   "Extra Limbs",
 ];
 
+export const PHYSICAL_AGE_APPEARANCE = [
+  NONE_SELECTED_OPTION,
+  "Young Adult",
+  "Adult",
+  "Middle Aged",
+  "Senior",
+  "Elderly",
+];
+
+export const EQUIPMENT_ATTIRE = [
+  NONE_SELECTED_OPTION,
+  "Barbaric attire",
+  "Breastplate",
+  "Buckler",
+  "Chainmail",
+  "Chain Shirt",
+  "Dragon Scale Armor",
+  "Full Plate Armor",
+  "Hide Armor",
+  "Leather Armor",
+  "Mithril Armor",
+  "Padded Armor",
+  "Plain Cloth",
+  "Plate Armor",
+  "Robes",
+  "Scale Mail",
+  "Studded Leather Armor",
+  "Unarmored",
+];
+
+export const EQUIPMENT_HEADWEAR = [
+  NONE_SELECTED_OPTION,
+  "Nothing",
+  "Bandana",
+  "Crown",
+  "Feathered Cap",
+  "Visored Helmet",
+  "Spiked Helmet",
+  "Cloak Hood",
+  "Ranger's Hood",
+  "Plague Doctor Mask",
+  "Masquerade Mask",
+  "Mitre",
+  "Tiara",
+  "Visor",
+];
+
 export const convertToPythonDict = (formData: PortraitGeneratorFormData) => {
   return {
     ...formData,
@@ -77,10 +124,13 @@ export const convertToPythonDict = (formData: PortraitGeneratorFormData) => {
       physical_build: formData.physicalTraits?.physicalBuild,
       physical_markings: formData.physicalTraits?.physicalMarkings,
       physical_appendages: formData.physicalTraits?.physicalAppendages,
+      age_appearance: formData.physicalTraits?.ageAppearance,
     },
     equipment: {
       ...formData.equipment,
-      clothing_style: formData.equipment?.clothingStyles,
+      // // kjill make sure to fix this later
+      // clothing_style: formData.equipment?.attire,
+      attire_primary_color: formData.equipment?.attirePrimaryColor,
     },
   };
 };

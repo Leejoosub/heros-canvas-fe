@@ -16,6 +16,7 @@ export interface PortraitGeneratorFormData {
 }
 
 export interface PhysicalTraits {
+  ageAppearance?: string;
   skinTexture?: string;
   skinColor?: string;
   eyeFeatures?: string;
@@ -28,9 +29,10 @@ export interface PhysicalTraits {
 }
 
 export interface Equipment {
-  clothingStyles: string;
-  armor: string;
-  accessories: string;
-  footwear: string;
-  weapon: string;
+  attirePrimaryColor?: string;
+  attire?: string;
+  headwear?: string;
+  accessories?: string;
+  footwear?: string;
+  weapon?: string;
 }

@@ -2,6 +2,7 @@ import {
   DEFAULT_EYE_COLOR,
   EYE_FEATURES,
   HAIRSTYLES,
+  PHYSICAL_AGE_APPEARANCE,
   PHYSICAL_APPENDAGES,
   PHYSICAL_BUILD,
   PHYSICAL_MARKINGS,
@@ -21,9 +22,29 @@ export default function PhysicalDetailsForm({
   return (
     <div className="flex flex-col w-full">
       <p className="bg-emphasisColor rounded-lg p-2 m-2">
-        Note: Optional. Specify any physical traits you want below. If you leave
-        it blank, we'll randomize it for you so don't worry!
+        Note: Optional section. Specify any physical traits you want below. If
+        you leave it blank, we'll randomize it for you so don't worry!
       </p>
+      <label className="my-2">
+        Age Appearance
+        <select
+          className="ml-2 px-1 rounded-lg bg-text text-primary"
+          value={formData.physicalTraits?.ageAppearance}
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              physicalTraits: {
+                ...formData.physicalTraits,
+                ageAppearance: e.target.value,
+              },
+            });
+          }}
+        >
+          {PHYSICAL_AGE_APPEARANCE.map((ageAppearance, index) => (
+            <option key={`age_appearance_${index}`}>{ageAppearance}</option>
+          ))}
+        </select>
+      </label>
       <label>
         Eye Features:
         <select
